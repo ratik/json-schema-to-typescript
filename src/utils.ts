@@ -1,6 +1,7 @@
 import {deburr, isPlainObject, trim, upperFirst} from 'lodash'
 import {basename, dirname, extname, normalize, sep, posix} from 'path'
 import {JSONSchema, LinkedJSONSchema, Parent} from './types/JSONSchema'
+import chalk from 'chalk'
 
 // TODO: pull out into a separate package
 export function Try<T>(fn: () => T, err: (e: Error) => any): T {
@@ -219,7 +220,7 @@ export function log(style: LogStyle, title: string, ...messages: unknown[]): voi
   if (messages.length > 1 && typeof messages[messages.length - 1] !== 'string') {
     lastMessage = messages.splice(messages.length - 1, 1)
   }
-  console.info(require('cli-color').whiteBright.bgCyan('debug'), getStyledTextForLogging(style)?.(title), ...messages)
+  console.info(chalk.whiteBright.bgCyan('debug'), getStyledTextForLogging(style)?.(title), ...messages)
   if (lastMessage) {
     console.dir(lastMessage, {depth: 6, maxArrayLength: 6})
   }
@@ -231,19 +232,19 @@ function getStyledTextForLogging(style: LogStyle): ((text: string) => string) | 
   }
   switch (style) {
     case 'blue':
-      return require('cli-color').whiteBright.bgBlue
+      return chalk.whiteBright.bgBlue
     case 'cyan':
-      return require('cli-color').whiteBright.bgCyan
+      return chalk.whiteBright.bgCyan
     case 'green':
-      return require('cli-color').whiteBright.bgGreen
+      return chalk.whiteBright.bgGreen
     case 'magenta':
-      return require('cli-color').whiteBright.bgMagenta
+      return chalk.whiteBright.bgMagenta
     case 'red':
-      return require('cli-color').whiteBright.bgRedBright
+      return chalk.whiteBright.bgRedBright
     case 'white':
-      return require('cli-color').black.bgWhite
+      return chalk.black.bgWhite
     case 'yellow':
-      return require('cli-color').whiteBright.bgYellow
+      return chalk.whiteBright.bgYellow
   }
 }
 
